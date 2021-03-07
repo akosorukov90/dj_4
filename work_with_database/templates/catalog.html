@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+{% load myfilter %}
+
+{% block title %}Каталог{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="header">
+            <h1><a href="/catalog">Каталог</a></h1>
+        </div>
+
+        <div class="sort-block">
+            {# Здесь должен быть раздел с сортировкой #}
+            <p>Сортировать по: <a href="{% url 'show_catalog' %}?sort=name">названию</a>&nbsp;&nbsp;&nbsp;
+                <a href="{% url 'show_catalog' %}?sort=price_min">начиная с дешевых</a>&nbsp;&nbsp;&nbsp;
+                <a href="{% url 'show_catalog' %}?sort=price_max">начиная с дорогих</a>
+            </p>
+            <br>
+        </div>
+
+        <div class="content">
+            {# Здесь должен отображаться каталог с телефонами #}
+            <table>
+                {% for elements in phones %}
+                     {% for key, value in elements.items %}
+                        {% if key == 'name' %}
+                            <tr align="center">
+                                <td><h2><a href="{% url 'show_product' slug=value|my_slug %}">{{value}}</a></h2></td>
+                            </tr>
+                        {% elif key == 'price' %}
+                            <tr align="center">
+                                <td><b>стоимость: {{value}} р.</b></td>
+                            </tr>
+                        {% elif key == 'image' %}
+                            <tr align="center">
+                                <td><img src={{value}} /></td>
+                            </tr>
+                            <tr><td><br></td></tr>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Телефон{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="header">
+            <h1>Телефон</h1>
+        </div>
+        <div class="content">
+            <table>
+                {% for elements in phones %}
+                     {% for key, value in elements.items %}
+                        {% if key == 'name' %}
+                            <tr align="center">
+                                <td><h2><font color="blue">{{value}}</font></h2></td>
+                            </tr>
+                        {% elif key == 'price' %}
+                            <tr align="center">
+                                <td><b>стоимость: {{value}} р.</b></td>
+                            </tr>
+                            {% elif key == 'release_date' %}
+                            <tr align="center">
+                                <td><b>дата релиза: {{value}}</b></td>
+                            </tr>
+                            {% elif key == 'lte_exist' %}
+                            <tr align="center">
+                                {% if value == True %}
+                                    <td><b>поддержка LTE: да</b></td>
+                                {% else %}
+                                    <td><b>поддержка LTE: нет</b></td>
+                                {% endif %}
+                            </tr>
+                        {% else %}
+                            <tr align="center">
+                                <td><img src={{value}} /></td>
+                            </tr>
+                            <tr><td><br></td></tr>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+{% endblock %}
